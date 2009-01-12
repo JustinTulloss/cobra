@@ -12,6 +12,63 @@
  * Provide a constructor called __init__ if you would like to initialize things.
  *
  * Provide a base class in the __extends__ property if you want your class to inherit from that class.
+ *
+ * Example:
+ * var Animal = new Class({
+ *     __init__: function(self) {
+ *         self.breathes = true;
+ *     }
+ * });
+ * 
+ * var Feline = new Class({
+ *     __extends__: Animal,
+ *     __init__: function(self) {
+ *         Class.super(Feline, '__init__', self);
+ *         self.claws = true;
+ *         self.furry = true;
+ *     },
+ *     says: function(self) {
+ *         console.log ('GRRRRR');
+ *     }
+ * });
+ * 
+ * var Cat = new Class({
+ *     __extends__: Feline,
+ *     __init__: function(self) {
+ *         Class.super(self, '__init__', self);
+ *         self.weight = 'very little';
+ *     },
+ *     says: function(self) {
+ *         console.log('MEOW');
+ *     }
+ * });
+ * 
+ * var Tiger = new Class({
+ *     __extends__: Feline,
+ *     __init__: function(self) {
+ *         Class.super(Tiger, '__init__', self);
+ *         self.weight = 'quite a bit';
+ *     }
+ * });
+ * 
+ * Usage: 
+ * 
+ * >>> sneakers = new Cat();
+ * Object breathes=true claws=true furry=true
+ * >>> sneakers.breathes
+ * true
+ * >>> sneakers.claws
+ * true
+ * >>> sneakers.furry
+ * true
+ * >>> sneakers.weight
+ * "very little"
+ * >>> sneakers.says();
+ * MEOW
+ * >>> tigger = new Tiger()
+ * Object breathes=true claws=true furry=true
+ * >>> tigger.says()
+ * GRRRRR
  */
 
 function Class(prototype) {
@@ -82,10 +139,26 @@ Class.method = function (callable, self) {
 /* Tests to see whether child has parent somewhere in its inheritance chain */
 Class.extends = function(child, parent) {
     if (child === parent) return true;
-
-    while (child.__extends__) {
-        if (child.__extends__ === parent) return true;
-        child = child.__extends__;
+    if (child.__extends__) {
+        return Class.extends(child.__extends__, parent);
     }
     return false;
+}
+
+/* Invokes the specified method on the parent class.
+ * Example:
+ * init: function(self, arg) {
+ *     Class.super(MyClass|self, '__init__', self, arg);
+ * }
+ */
+Class.super = function(child, method) {
+    var parent = child.__extends__ || child.constructor.__extends__;
+    var args;
+    if (parent.prototype[method]) {
+        args = $A(arguments).slice(2, arguments.length);
+        return parent.prototype[method].apply(this, args);
+    } else {
+        arguments[0] = parent; //move up one in the inheritance stack
+        return Class.super.call(this, arguments);
+    }
 }
