@@ -81,7 +81,7 @@ function Class(prototype) {
 
         // Methodize all the functions
         for (key in this) {
-            member = this[key]
+            member = this[key];
             if (typeof member == 'function') {
                 this[key] = Class.method(member, this);
             }
