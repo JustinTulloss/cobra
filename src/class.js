@@ -23,7 +23,7 @@
  * var Feline = new Cobra.Class({
  *     __extends__: Animal,
  *     __init__: function(self) {
- *         Cobra.Class.super(Feline, '__init__', self);
+ *         Cobra.Class.ancestor(Feline, '__init__', self);
  *         self.claws = true;
  *         self.furry = true;
  *     },
@@ -35,7 +35,7 @@
  * var Cat = new Cobra.Class({
  *     __extends__: Feline,
  *     __init__: function(self) {
- *         Cobra.Class.super(self, '__init__', self);
+ *         Cobra.Class.ancestor(self, '__init__', self);
  *         self.weight = 'very little';
  *     },
  *     says: function(self) {
@@ -46,7 +46,7 @@
  * var Tiger = new Cobra.Class({
  *     __extends__: Feline,
  *     __init__: function(self) {
- *         Cobra.Class.super(Tiger, '__init__', self);
+ *         Cobra.Class.ancestor(Tiger, '__init__', self);
  *         self.weight = 'quite a bit';
  *     }
  * });
@@ -119,8 +119,8 @@ Cobra.Class = function(prototype) {
     klass.prototype = base;
 
     /* Cobra.Class functions */
-    klass.extends = function (parent) {
-        return Cobra.Class.extends(this, parent);
+    klass.isChild = function (parent) {
+        return Cobra.Class.isChild(this, parent);
     }
 
     return klass;
@@ -137,10 +137,10 @@ Cobra.Class.method = function (callable, self) {
 }
 
 /* Tests to see whether child has parent somewhere in its inheritance chain */
-Cobra.Class.extends = function(child, parent) {
+Cobra.Class.isChild = function(child, parent) {
     if (child === parent) return true;
     if (child.__extends__) {
-        return Cobra.Class.extends(child.__extends__, parent);
+        return Cobra.Class.isChild(child.__extends__, parent);
     }
     return false;
 }
@@ -148,10 +148,10 @@ Cobra.Class.extends = function(child, parent) {
 /* Invokes the specified method on the parent class.
  * Example:
  * init: function(self, arg) {
- *     Cobra.Class.super(MyCobra.Class|self, '__init__', self, arg);
+ *     Cobra.Class.ancestor(MyCobra.Class|self, '__init__', self, arg);
  * }
  */
-Cobra.Class.super = function(child, method) {
+Cobra.Class.ancestor = function(child, method) {
     var parent = child.__extends__ || child.constructor.__extends__;
     var args;
     if (parent.prototype[method]) {
@@ -159,6 +159,6 @@ Cobra.Class.super = function(child, method) {
         return parent.prototype[method].apply(this, args);
     } else {
         arguments[0] = parent; //move up one in the inheritance stack
-        return Cobra.Class.super.call(this, arguments);
+        return Cobra.Class.ancestor.call(this, arguments);
     }
 }
