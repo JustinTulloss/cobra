@@ -4,7 +4,7 @@
 // The Cobra namespace
 Cobra = {};
 
-function Cobra.$A(iterable) {
+Cobra.$A = function(iterable) {
     return Array.prototype.slice.call(iterable);
 }
 
