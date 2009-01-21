@@ -1,2 +1,19 @@
-#!/usr/bin/env bash
-cat src/*.js > cobra.js
+#!/usr/bin/env python
+
+import simplejson
+
+def load_source_list():
+    return simplejson.load(open('sources.json'))
+
+def main():
+    sources = load_source_list()
+    output = open('cobra.js', 'w')
+    for filePath in sources:
+        file = open(filePath, 'r')
+        output.write(file.read())
+        file.close()
+
+    output.close()
+
+if __name__ == '__main__':
+    main()

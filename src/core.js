@@ -1,6 +1,10 @@
 /* License: MIT-style License
  */
-function $A(iterable) {
+
+// The Cobra namespace
+Cobra = {}
+
+function Cobra.$A(iterable) {
     return Array.prototype.slice.call(iterable);
 }
 

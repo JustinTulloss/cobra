@@ -3,9 +3,9 @@
  * The Singleton class is created just like a regular class except that
  * it a single instance is returned.
  */
-var Singleton = new Class({
+Cobra.Singleton = new Cobra.Class({
     __init__: function(self, prototype) {
-        klass = new Class(prototype);
+        klass = new Cobra.Class(prototype);
         return new klass();
     }
 });

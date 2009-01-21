@@ -1,6 +1,6 @@
 /* License: MIT-style License
  * 
- * Contains the Class function which allows you to make very simple classes
+ * Contains the Cobra.Class function which allows you to make very simple classes
  * in a style modeled after python.
  * 
  * Everything is public. Indicate that you would prefer certain things be kept private
@@ -14,16 +14,16 @@
  * Provide a base class in the __extends__ property if you want your class to inherit from that class.
  *
  * Example:
- * var Animal = new Class({
+ * var Animal = new Cobra.Class({
  *     __init__: function(self) {
  *         self.breathes = true;
  *     }
  * });
  * 
- * var Feline = new Class({
+ * var Feline = new Cobra.Class({
  *     __extends__: Animal,
  *     __init__: function(self) {
- *         Class.super(Feline, '__init__', self);
+ *         Cobra.Class.super(Feline, '__init__', self);
  *         self.claws = true;
  *         self.furry = true;
  *     },
@@ -32,10 +32,10 @@
  *     }
  * });
  * 
- * var Cat = new Class({
+ * var Cat = new Cobra.Class({
  *     __extends__: Feline,
  *     __init__: function(self) {
- *         Class.super(self, '__init__', self);
+ *         Cobra.Class.super(self, '__init__', self);
  *         self.weight = 'very little';
  *     },
  *     says: function(self) {
@@ -43,10 +43,10 @@
  *     }
  * });
  * 
- * var Tiger = new Class({
+ * var Tiger = new Cobra.Class({
  *     __extends__: Feline,
  *     __init__: function(self) {
- *         Class.super(Tiger, '__init__', self);
+ *         Cobra.Class.super(Tiger, '__init__', self);
  *         self.weight = 'quite a bit';
  *     }
  * });
@@ -71,7 +71,7 @@
  * GRRRRR
  */
 
-function Class(prototype) {
+Cobra.Class = function(prototype) {
 
     // Constructor
     function klass() {
@@ -83,7 +83,7 @@ function Class(prototype) {
         for (key in this) {
             member = this[key];
             if (typeof member == 'function') {
-                this[key] = Class.method(member, this);
+                this[key] = Cobra.Class.method(member, this);
             }
         }
 
@@ -118,18 +118,18 @@ function Class(prototype) {
 
     klass.prototype = base;
 
-    /* Class functions */
+    /* Cobra.Class functions */
     klass.extends = function (parent) {
-        return Class.extends(this, parent);
+        return Cobra.Class.extends(this, parent);
     }
 
     return klass;
 }
 
 /* Makes a method out of passed function */
-Class.method = function (callable, self) {
+Cobra.Class.method = function (callable, self) {
     function method () {
-        var args = $A(arguments);
+        var args = Cobra.$A(arguments);
         args.unshift(self);
         return callable.apply(this, args);
     }
@@ -137,10 +137,10 @@ Class.method = function (callable, self) {
 }
 
 /* Tests to see whether child has parent somewhere in its inheritance chain */
-Class.extends = function(child, parent) {
+Cobra.Class.extends = function(child, parent) {
     if (child === parent) return true;
     if (child.__extends__) {
-        return Class.extends(child.__extends__, parent);
+        return Cobra.Class.extends(child.__extends__, parent);
     }
     return false;
 }
@@ -148,17 +148,17 @@ Class.extends = function(child, parent) {
 /* Invokes the specified method on the parent class.
  * Example:
  * init: function(self, arg) {
- *     Class.super(MyClass|self, '__init__', self, arg);
+ *     Cobra.Class.super(MyCobra.Class|self, '__init__', self, arg);
  * }
  */
-Class.super = function(child, method) {
+Cobra.Class.super = function(child, method) {
     var parent = child.__extends__ || child.constructor.__extends__;
     var args;
     if (parent.prototype[method]) {
-        args = $A(arguments).slice(2, arguments.length);
+        args = Cobra.$A(arguments).slice(2, arguments.length);
         return parent.prototype[method].apply(this, args);
     } else {
         arguments[0] = parent; //move up one in the inheritance stack
-        return Class.super.call(this, arguments);
+        return Cobra.Class.super.call(this, arguments);
     }
 }
