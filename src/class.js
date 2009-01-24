@@ -123,6 +123,10 @@ Cobra.Class = function(prototype) {
         return Cobra.Class.isChild(this, parent);
     }
 
+    klass.hasParent = function() {
+        return Cobra.Class.hasParent(this);
+    }
+
     return klass;
 }
 
@@ -143,6 +147,11 @@ Cobra.Class.isChild = function(child, parent) {
         return Cobra.Class.isChild(child.__extends__, parent);
     }
     return false;
+}
+
+/* Returns true if the child has descended from a Cobra Class */
+Cobra.Class.hasParent = function(child) {
+    return (child.__extends__ || child.constructor.__extends__);
 }
 
 /* Invokes the specified method on the parent class.
