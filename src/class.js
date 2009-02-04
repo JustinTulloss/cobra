@@ -81,9 +81,11 @@ Cobra.Class = function(prototype) {
 
         // Methodize all the functions
         for (key in this) {
-            member = this[key];
-            if (typeof member == 'function') {
-                this[key] = Cobra.Class.method(member, this);
+            if (prototype.hasOwnProperty(key)) {
+                member = this[key];
+                if (typeof member == 'function') {
+                    this[key] = Cobra.Class.method(member, this);
+                }
             }
         }
 
@@ -110,7 +112,10 @@ Cobra.Class = function(prototype) {
         base = new base();
         /* copy the updated prototype into the properties of base */
         for (key in prototype) {
-            base[key] = prototype[key];
+            // Needed check in case of extension on Object.prototype
+            if (prototype.hasOwnProperty(key)) {
+                base[key] = prototype[key];
+            }
         }
     } else {
         base = prototype;
