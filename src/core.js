@@ -20,3 +20,13 @@ Cobra.install = function() {
         }
     }
 }
+
+/* Configuration options for Cobra. These are intended not to be changed
+ * during runtime.
+ *
+ * self - Make "self" the first argument of every class method. Makes things easier to use,
+ *        but there is a performance tradeoff.
+ */
+Cobra.config = {
+    self: true,
+}
