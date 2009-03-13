@@ -80,7 +80,7 @@ Cobra.Class = function(prototype) {
         var base;
 
         // Methodize all the functions
-        if (Cobra.Config.self) {
+        if (Cobra.config.self) {
             for (key in this) {
                 if (prototype.hasOwnProperty(key)) {
                     member = this[key];
