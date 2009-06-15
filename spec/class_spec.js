@@ -52,7 +52,9 @@ describe("Class with self", {
     },
     "Should be able to declaw a feline object": function() {
         var f = new Feline();
+        var f2 = new Feline();
         f.declaw();
         value_of(f.claws).should_be_false();
+        value_of(f2.claws).should_be_true();
     }
 });
