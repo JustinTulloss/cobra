@@ -88,9 +88,9 @@ Cobra is tested with JSSpec, which you can find in the "spec" subfolder. Open sp
 in your browser of choice to see all the tests passing.
 
 Known to work in:
-    * Chrome
-    * Safari 4
-    * FireFox 3.5
+ * Chrome
+ * Safari 4
+ * FireFox 3.5
 
 License
 -------
