@@ -1,0 +1,10 @@
+*~
+*.swp
+*.pyc
+*.o
+*.so
+*.dmg
+*.orig
+*/Thumbs.db
+.DS_Store
+cobra.js
