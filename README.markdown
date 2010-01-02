@@ -15,12 +15,12 @@ in a style modeled after python.
 Everything is public. Indicate that you would prefer certain things be kept private
 with a leading underscore (IE. _privateThing)
 
-All class methods are passed "self" as their first parameter. Self is guaranteed to be
-the instance of the class, whether "this" is the instance or not.
+All class methods are passed `self` as their first parameter. Self is guaranteed to be
+the instance of the class, whether `this` is the instance or not.
 
-Provide a constructor called __init__ if you would like to initialize things.
+Provide a constructor called `__init__` if you would like to initialize things.
 
-Provide a base class in the __extends__ property if you want your class to inherit from that class.
+Provide a base class in the `__extends__` property if you want your class to inherit from that class.
 
 Example
 -------
@@ -88,9 +88,9 @@ Cobra is tested with JSSpec, which you can find in the "spec" subfolder. Open sp
 in your browser of choice to see all the tests passing.
 
 Known to work in:
-- Chrome
-- Safari 4
-- FireFox 3.5
+ - Chrome
+ - Safari 4
+ - FireFox 3.5
 
 License
 -------
