@@ -6,6 +6,22 @@ nice interface for creating classes and managing instances of those
 classes. It attempts to interfere as little as possible with how JavaScript
 usually behaves, meaning that it should work with any other JavaScript library.
 
+Installing
+----------
+
+From the directory you want to have the cobra source:
+
+    git clone http://github.com/jmtulloss/cobra.git
+    cd cobra
+    ./compile
+    cp cobra.min.js <location cobra should be in your site directory>
+
+Optionally, you can use the non-minified version of `cobra.js` available in
+`src`. The minified version is build using the [Google Closure Compiler][1]
+and is the version recommended for production environments.
+
+[1]: http://code.google.com/closure/compiler/
+
 How to Use the Library
 ----------------------
 
