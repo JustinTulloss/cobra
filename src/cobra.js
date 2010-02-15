@@ -1,9 +1,21 @@
 /* License: MIT-style License
  */
 
+/**
+ * ==Cobra==
+ * A simple, lightweight JavaScript Class Library
+ **/
+
 /*global window exports GLOBAL */
 
-// The Cobra namespace
+/** section: Cobra
+ * Cobra
+ * The base namespace.
+ *
+ * This namespace holds all of the Cobra class functionality. If you prefer
+ * this type of functionality to be globally avaiable (so you don't need
+ * to prepend every access with `Cobra`), check out [[Cobra.install]]
+ **/
 var Cobra = typeof window === 'undefined' ? exports : {};
 (function() {
     var root = typeof window === 'undefined' ? GLOBAL : window;
@@ -12,20 +24,27 @@ var Cobra = typeof window === 'undefined' ? exports : {};
         return Array.prototype.slice.call(iterable);
     }
 
-    /* Configuration options for Cobra. These are intended not to be changed
-     * during runtime.
+    /**
+     * Cobra.config -> Object
+     * Configuration options for Cobra.
      *
-     * self - Make "self" the first argument of every class method.
-     *        Makes things easier to use, but there is a performance tradeoff.
-     */
+     * Options
+     * -------
+     *
+     * - `self`: Make "self" the first argument of every class method.
+     *    Makes things easier to use, but there is a performance tradeoff.
+     **/
     Cobra.config = {
         self: true
     };
 
-    /* This function makes all the top level cobra objects part of
-     * the global namespace. Do this if cobra is the exclusive library
-     * you are using to provide class functionality.
-     */
+    /**
+     * Cobra.install() -> undefined
+     *
+     * This function makes all the top level cobra objects part of
+     * the global namespace. Do this if you don't want to prepend every
+     * call to Cobra with `Cobra`
+     **/
     Cobra.install = function() {
         var key;
         for (key in Cobra) {
@@ -35,79 +54,91 @@ var Cobra = typeof window === 'undefined' ? exports : {};
         }
     };
 
-    /* The Cobra.Class function allows you to make very simple classes in
+    /**
+     * class Cobra.Class
+     **/
+
+    /**
+     * new Cobra.Class(prototype)
+     * - prototype (Object): The object to inherit from. May contain
+     *   special properties that change behavior (such as `__init__` and
+     *   `__extends__`). These are documented in depth below.
+     *
+     * The `Cobra.Class` function allows you to make very simple classes in
      * a style modeled after python.
      *
      * Everything is public. Indicate that you would prefer certain
-     * things be kept private with a leading underscore (IE. _privateThing)
+     * things be kept private with a leading underscore (IE. `_privateThing`)
      *
-     * All class methods are passed "self" as their first parameter. Self
+     * All class methods are passed `self` as their first parameter. Self
      * is guaranteed to be the instance of the class, whether "this" is the
      * instance or not.
      *
-     * Provide a constructor called __init__ if you would like to initialize
+     * Provide a constructor called `__init__` if you would like to initialize
      * things.
      *
-     * Provide a base class in the __extends__ property if you want your
+     * Provide a base class in the `__extends__` property if you want your
      * class to inherit from that class.
      *
-     * Example:
-     * var Animal = new Cobra.Class({
-     *     __init__: function(self) {
-     *         self.breathes = true;
-     *     }
-     * });
-     * 
-     * var Feline = new Cobra.Class({
-     *     __extends__: Animal,
-     *     __init__: function(self) {
-     *         Cobra.Class.ancestor(Feline, '__init__', self);
-     *         self.claws = true;
-     *         self.furry = true;
-     *     },
-     *     says: function(self) {
-     *         console.log ('GRRRRR');
-     *     }
-     * });
-     * 
-     * var Cat = new Cobra.Class({
-     *     __extends__: Feline,
-     *     __init__: function(self) {
-     *         Cobra.Class.ancestor(self, '__init__', self);
-     *         self.weight = 'very little';
-     *     },
-     *     says: function(self) {
-     *         console.log('MEOW');
-     *     }
-     * });
-     * 
-     * var Tiger = new Cobra.Class({
-     *     __extends__: Feline,
-     *     __init__: function(self) {
-     *         Cobra.Class.ancestor(Tiger, '__init__', self);
-     *         self.weight = 'quite a bit';
-     *     }
-     * });
-     * 
-     * Usage: 
-     * 
-     * >>> sneakers = new Cat();
-     * Object breathes=true claws=true furry=true
-     * >>> sneakers.breathes
-     * true
-     * >>> sneakers.claws
-     * true
-     * >>> sneakers.furry
-     * true
-     * >>> sneakers.weight
-     * "very little"
-     * >>> sneakers.says();
-     * MEOW
-     * >>> tigger = new Tiger()
-     * Object breathes=true claws=true furry=true
-     * >>> tigger.says()
-     * GRRRRR
-     */
+     * Example
+     * -------
+     *      var Animal = new Cobra.Class({
+     *          __init__: function(self) {
+     *              self.breathes = true;
+     *          }
+     *      });
+     *
+     *      var Feline = new Cobra.Class({
+     *          __extends__: Animal,
+     *          __init__: function(self) {
+     *              Cobra.Class.ancestor(Feline, '__init__', self);
+     *              self.claws = true;
+     *              self.furry = true;
+     *          },
+     *          says: function(self) {
+     *              console.log ('GRRRRR');
+     *          }
+     *      });
+     *
+     *      var Cat = new Cobra.Class({
+     *          __extends__: Feline,
+     *          __init__: function(self) {
+     *              Cobra.Class.ancestor(self, '__init__', self);
+     *              self.weight = 'very little';
+     *          },
+     *          says: function(self) {
+     *              console.log('MEOW');
+     *          }
+     *      });
+     *
+     *      var Tiger = new Cobra.Class({
+     *          __extends__: Feline,
+     *          __init__: function(self) {
+     *              Cobra.Class.ancestor(Tiger, '__init__', self);
+     *              self.weight = 'quite a bit';
+     *          }
+     *      });
+     *
+     * Usage
+     * -----
+     *
+     *      >>> sneakers = new Cat();
+     *      Object breathes=true claws=true furry=true
+     *      >>> sneakers.breathes
+     *      true
+     *      >>> sneakers.claws
+     *      true
+     *      >>> sneakers.furry
+     *      true
+     *      >>> sneakers.weight
+     *      "very little"
+     *      >>> sneakers.says();
+     *      MEOW
+     *      >>> tigger = new Tiger()
+     *      Object breathes=true claws=true furry=true
+     *      >>> tigger.says()
+     *      GRRRRR
+     **/
     Cobra.Class = function(prototype) {
         var base, key;
 
@@ -142,7 +173,7 @@ var Cobra = typeof window === 'undefined' ? exports : {};
         }
 
         /* A very basic, prototype-based inheritance scheme.
-         * 
+         *
          * Basically, we create a wrapper "base" object that will serve as the
          * prototype for our new class. It, in turn, has our inherited class
          * prototype as its prototype. This creates an prototype based
@@ -182,7 +213,14 @@ var Cobra = typeof window === 'undefined' ? exports : {};
         return klass;
     };
 
-    /* Makes a method out of passed function */
+    /**
+     * Cobra.Class.method(callable, self) -> function
+     * - callable (Function): A function to methodize.
+     * - self (Object): The scope you want `this` to be defined as
+     *   when this method is called.
+     *
+     * Makes a method out of passed function, and returns the new function
+     **/
     Cobra.Class.method = function (callable, self) {
         function method () {
             var args = toArray(arguments);
@@ -206,12 +244,21 @@ var Cobra = typeof window === 'undefined' ? exports : {};
         return (child.__extends__ || child.constructor.__extends__);
     };
 
-    /* Invokes the specified method on the parent class.
-     * Example:
-     * init: function(self, arg) {
-     *     Cobra.Class.ancestor(MyCobra.Class|self, '__init__', self, arg);
-     * }
-     */
+    /**
+     * Cobra.Class.ancestor(child, method[, args]) -> Return Value
+     * - child (Cobra.Class): The class you want to find the ancestor of.
+     * - method (String): The method to call on the first ancestor that has
+     *   the method.
+     *
+     * Invokes the specified method on the first parent class that has the
+     * specified method.
+     *
+     * Example
+     * -------
+     *    init: function(self, arg) {
+     *        Cobra.Class.ancestor(MyCobra.Class|self, '__init__', self, arg);
+     *    }
+     **/
     Cobra.Class.ancestor = function(child, method) {
         var parentClass = child.__extends__ || child.constructor.__extends__;
         var args = toArray(arguments);
@@ -224,10 +271,16 @@ var Cobra = typeof window === 'undefined' ? exports : {};
         }
     };
 
-    /*
-     * The Singleton class is created just like a regular class except that
-     * it a single instance is returned.
-     */
+    /**
+     * class Cobra.Singleton
+     **/
+
+    /**
+     * new Cobra.Singleton(prototype)
+     *
+     * The Singleton class is created just like a regular [[Cobra.Class]
+     * except that a single instance is returned.
+     **/
 
     Cobra.Singleton = new Cobra.Class({
         __init__: function(self, prototype) {
