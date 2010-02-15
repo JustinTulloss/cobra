@@ -1,7 +1,7 @@
 /* License: MIT-style License
  */
 
-/*global window exports */
+/*global window exports GLOBAL */
 
 // The Cobra namespace
 var Cobra = typeof window === 'undefined' ? exports : {};
@@ -113,6 +113,11 @@ var Cobra = typeof window === 'undefined' ? exports : {};
 
         // Constructor
         function klass() {
+            if (this === root) {
+                throw new TypeError(
+                    "You must use 'new' when instantiating a new instance of this class");
+            }
+
             var key, member;
             var instance;
             var base;
