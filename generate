@@ -1,18 +1,46 @@
 #!/usr/bin/env python
 
+import httplib, urllib, sys
+
 import simplejson
 
 def load_source_list():
     return simplejson.load(open('sources.json'))
 
+def compile(code):
+    """
+    Sends the JavaScript to the Google Closure compiler and returns
+    the transformed output.
+    """
+    # Define the parameters for the POST request and encode them in
+    # a URL-safe format.
+    params = urllib.urlencode([
+        ('js_code', code),
+        ('compilation_level', 'SIMPLE_OPTIMIZATIONS'),
+        ('output_format', 'text'),
+        ('output_info', 'compiled_code'),
+      ])
+
+    # Always use the following value for the Content-type header.
+    headers = { "Content-type": "application/x-www-form-urlencoded" }
+    conn = httplib.HTTPConnection('closure-compiler.appspot.com')
+    conn.request('POST', '/compile', params, headers)
+    response = conn.getresponse()
+    data = response.read()
+    conn.close()
+    return data
+
+
 def main():
+    source = ""
     sources = load_source_list()
     output = open('cobra.js', 'w')
     for filePath in sources:
         file = open(filePath, 'r')
-        output.write(file.read())
+        source += file.read()
         file.close()
 
+    output.write(compile(source))
     output.close()
 
 if __name__ == '__main__':
