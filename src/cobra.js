@@ -6,7 +6,7 @@
 // The Cobra namespace
 var Cobra = typeof window === 'undefined' ? exports : {};
 (function() {
-    var root = typeof window === 'undefined' ? exports : window;
+    var root = typeof window === 'undefined' ? GLOBAL : window;
 
     function toArray (iterable) {
         return Array.prototype.slice.call(iterable);
