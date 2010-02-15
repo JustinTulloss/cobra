@@ -135,7 +135,7 @@ Cobra.Class = function(prototype) {
     }
 
     return klass;
-}
+};
 
 /* Makes a method out of passed function */
 Cobra.Class.method = function (callable, self) {
@@ -145,7 +145,7 @@ Cobra.Class.method = function (callable, self) {
         return callable.apply(this, args);
     }
     return method;
-}
+};
 
 /* Tests to see whether child has parent somewhere in its inheritance chain */
 Cobra.Class.isChild = function(child, parent) {
@@ -159,7 +159,7 @@ Cobra.Class.isChild = function(child, parent) {
 /* Returns true if the child has descended from a Cobra Class */
 Cobra.Class.hasParent = function(child) {
     return (child.__extends__ || child.constructor.__extends__);
-}
+};
 
 /* Invokes the specified method on the parent class.
  * Example:
@@ -177,4 +177,4 @@ Cobra.Class.ancestor = function(child, method) {
         arguments[0] = parent; //move up one in the inheritance stack
         return Cobra.Class.ancestor.call(this, arguments);
     }
-}
+};

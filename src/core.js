@@ -2,7 +2,7 @@
  */
 
 // The Cobra namespace
-Cobra = {};
+var Cobra = {};
 
 Cobra.$A = function(iterable) {
     return Array.prototype.slice.call(iterable);
@@ -19,7 +19,7 @@ Cobra.install = function() {
             window[key] = Cobra[key];
         }
     }
-}
+};
 
 /* Configuration options for Cobra. These are intended not to be changed
  * during runtime.
@@ -28,5 +28,5 @@ Cobra.install = function() {
  *        but there is a performance tradeoff.
  */
 Cobra.config = {
-    self: true,
-}
+    self: true
+};
