@@ -1,10 +1,10 @@
 Cobra: A simple JavaScript Class Library
 ========================================
 
-Cobra is a simple JavaScript class library that attempts to provide a nice interface
-for creating classes and managing instances of those classes. It attempts to
-interfere as little as possible with how JavaScript usually behaves, meaning that it
-should work with any other JavaScript library.
+Cobra is a simple JavaScript class library that attempts to provide a
+nice interface for creating classes and managing instances of those
+classes. It attempts to interfere as little as possible with how JavaScript
+usually behaves, meaning that it should work with any other JavaScript library.
 
 How to Use the Library
 ----------------------
@@ -12,15 +12,17 @@ How to Use the Library
 Cobra.Class allows you to make very simple classes
 in a style modeled after python.
 
-Everything is public. Indicate that you would prefer certain things be kept private
-with a leading underscore (IE. _privateThing)
+Everything is public. Indicate that you would prefer certain things be
+kept private with a leading underscore (IE. _privateThing)
 
-All class methods are passed `self` as their first parameter. Self is guaranteed to be
-the instance of the class, whether `this` is the instance or not.
+All class methods are passed `self` as their first parameter. Self is
+guaranteed to be the instance of the class, whether `this` is the instance
+or not.
 
 Provide a constructor called `__init__` if you would like to initialize things.
 
-Provide a base class in the `__extends__` property if you want your class to inherit from that class.
+Provide a base class in the `__extends__` property if you want your
+class to inherit from that class.
 
 Example
 -------
@@ -84,14 +86,16 @@ Usage
 Tests
 -----
 
-Cobra is tested with JSSpec, which you can find in the "spec" subfolder. Open spec_runner.html
-in your browser of choice to see all the tests passing.
+Cobra is tested with JSSpec, which you can find in the "spec" subfolder.
+Open spec_runner.html in your browser of choice to see all the tests passing.
 
 Known to work in:
 
  - Chrome
  - Safari 4
- - FireFox 3.5
+ - FireFox 3-3.5
+ - Internet Explorer 8
+ - node.js (Full test suite hasn't been run)
 
 License
 -------
