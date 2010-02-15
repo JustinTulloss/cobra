@@ -4,11 +4,9 @@
 /*global window exports */
 
 // The Cobra namespace
-var Cobra = {};
+var Cobra = typeof window === 'undefined' ? exports : {};
 (function() {
-    var root = this;
-    root.Cobra = Cobra;
-
+    var root = typeof window === 'undefined' ? exports : window;
     Cobra.toArray = function(iterable) {
         return Array.prototype.slice.call(iterable);
     };
@@ -29,8 +27,8 @@ var Cobra = {};
     /* Configuration options for Cobra. These are intended not to be changed
      * during runtime.
      *
-     * self - Make "self" the first argument of every class method. Makes things easier to use,
-     *        but there is a performance tradeoff.
+     * self - Make "self" the first argument of every class method.
+     *        Makes things easier to use, but there is a performance tradeoff.
      */
     Cobra.config = {
         self: true
