@@ -278,7 +278,7 @@ var Cobra = typeof window === 'undefined' ? exports : {};
     /**
      * new Cobra.Singleton(prototype)
      *
-     * The Singleton class is created just like a regular [[Cobra.Class]
+     * The Singleton class is created just like a regular [[Cobra.Class]]
      * except that a single instance is returned.
      **/
 
