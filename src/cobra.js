@@ -71,7 +71,7 @@ var Cobra = typeof window === 'undefined' ? exports : {};
      * things be kept private with a leading underscore (IE. `_privateThing`)
      *
      * All class methods are passed `self` as their first parameter. Self
-     * is guaranteed to be the instance of the class, whether "this" is the
+     * is guaranteed to be the instance of the class, whether `this` is the
      * instance or not.
      *
      * Provide a constructor called `__init__` if you would like to initialize
@@ -87,7 +87,6 @@ var Cobra = typeof window === 'undefined' ? exports : {};
      *              self.breathes = true;
      *          }
      *      });
-     *
      *      var Feline = new Cobra.Class({
      *          __extends__: Animal,
      *          __init__: function(self) {
@@ -99,7 +98,6 @@ var Cobra = typeof window === 'undefined' ? exports : {};
      *              console.log ('GRRRRR');
      *          }
      *      });
-     *
      *      var Cat = new Cobra.Class({
      *          __extends__: Feline,
      *          __init__: function(self) {
@@ -110,7 +108,6 @@ var Cobra = typeof window === 'undefined' ? exports : {};
      *              console.log('MEOW');
      *          }
      *      });
-     *
      *      var Tiger = new Cobra.Class({
      *          __extends__: Feline,
      *          __init__: function(self) {
@@ -246,7 +243,9 @@ var Cobra = typeof window === 'undefined' ? exports : {};
 
     /**
      * Cobra.Class.ancestor(child, method[, args]) -> Return Value
-     * - child (Cobra.Class): The class you want to find the ancestor of.
+     * - child (Cobra.Class | Object): The class or object you want to find
+     *   the ancestor of. If passing an object, the object must be an instance
+     *   of a [[Cobra.Class]]
      * - method (String): The method to call on the first ancestor that has
      *   the method.
      *
@@ -255,9 +254,9 @@ var Cobra = typeof window === 'undefined' ? exports : {};
      *
      * Example
      * -------
-     *    init: function(self, arg) {
-     *        Cobra.Class.ancestor(MyCobra.Class|self, '__init__', self, arg);
-     *    }
+     *     init: function(self, arg) {
+     *         Cobra.Class.ancestor(MyCobra.Class|self, '__init__', self, arg);
+     *     }
      **/
     Cobra.Class.ancestor = function(child, method) {
         var parentClass = child.__extends__ || child.constructor.__extends__;
