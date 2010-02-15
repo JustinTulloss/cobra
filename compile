@@ -2,11 +2,6 @@
 
 import httplib, urllib, sys
 
-import simplejson
-
-def load_source_list():
-    return simplejson.load(open('sources.json'))
-
 def compile(code):
     """
     Sends the JavaScript to the Google Closure compiler and returns
@@ -33,13 +28,12 @@ def compile(code):
 
 def main():
     source = ""
-    sources = load_source_list()
-    output = open('cobra.js', 'w')
-    for filePath in sources:
-        file = open(filePath, 'r')
-        source += file.read()
-        file.close()
+    sourcePath = './src/cobra.js'
+    file = open(sourcePath, 'r')
+    source += file.read()
+    file.close()
 
+    output = open('cobra.min.js', 'w')
     output.write(compile(source))
     output.close()
 

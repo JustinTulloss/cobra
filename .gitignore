@@ -7,4 +7,5 @@
 *.orig
 */Thumbs.db
 .DS_Store
-cobra.js
+*.swo
+cobra.min.js
