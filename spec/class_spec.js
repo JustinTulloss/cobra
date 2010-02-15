@@ -29,6 +29,17 @@ describe("Class with self", {
         value_of(a).should_not_be_undefined();
         value_of(a instanceof Animal).should_be_true();
     },
+    "Animal class should require new": function() {
+        try {
+            var a = Animal();
+        }
+        catch (e) {
+            value_of(e).should_not_be_undefined();
+            value_of(e instanceof TypeError).should_be_true();
+            return;
+        }
+        value_of(a).should_be_undefined();
+    },
     "Animal object should breath": function() {
         var a = new Animal();
         value_of(a.breathes).should_be_true();
