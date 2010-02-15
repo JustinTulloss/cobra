@@ -71,7 +71,10 @@
  * GRRRRR
  */
 
+/*globals Cobra */
+
 Cobra.Class = function(prototype) {
+    var base, key;
 
     // Constructor
     function klass() {
@@ -109,7 +112,7 @@ Cobra.Class = function(prototype) {
     if (prototype.__extends__) {
         klass.__extends__ = prototype.__extends__;
         delete prototype.__extends__;
-        function base() {};
+        base = function() {};
         base.prototype = klass.__extends__.prototype;
         base = new base();
         /* copy the updated prototype into the properties of base */
@@ -128,11 +131,11 @@ Cobra.Class = function(prototype) {
     /* Cobra.Class functions */
     klass.isChild = function (parent) {
         return Cobra.Class.isChild(this, parent);
-    }
+    };
 
     klass.hasParent = function() {
         return Cobra.Class.hasParent(this);
-    }
+    };
 
     return klass;
 };
@@ -140,7 +143,7 @@ Cobra.Class = function(prototype) {
 /* Makes a method out of passed function */
 Cobra.Class.method = function (callable, self) {
     function method () {
-        var args = Cobra.$A(arguments);
+        var args = Cobra.toArray(arguments);
         args.unshift(self);
         return callable.apply(this, args);
     }
@@ -149,12 +152,12 @@ Cobra.Class.method = function (callable, self) {
 
 /* Tests to see whether child has parent somewhere in its inheritance chain */
 Cobra.Class.isChild = function(child, parent) {
-    if (child === parent) return true;
+    if (child === parent) { return true; }
     if (child.__extends__) {
         return Cobra.Class.isChild(child.__extends__, parent);
     }
     return false;
-}
+};
 
 /* Returns true if the child has descended from a Cobra Class */
 Cobra.Class.hasParent = function(child) {
@@ -168,13 +171,13 @@ Cobra.Class.hasParent = function(child) {
  * }
  */
 Cobra.Class.ancestor = function(child, method) {
-    var parent = child.__extends__ || child.constructor.__extends__;
-    var args;
-    if (parent.prototype[method]) {
-        args = Cobra.$A(arguments).slice(2, arguments.length);
-        return parent.prototype[method].apply(this, args);
+    var parentClass = child.__extends__ || child.constructor.__extends__;
+    var args = Cobra.toArray(arguments);
+    if (parentClass.prototype[method]) {
+        args = args.slice(2, arguments.length);
+        return parentClass.prototype[method].apply(this, args);
     } else {
-        arguments[0] = parent; //move up one in the inheritance stack
-        return Cobra.Class.ancestor.call(this, arguments);
+        args[0] = parentClass; //move up one in the inheritance stack
+        return Cobra.Class.ancestor.call(this, args);
     }
 };
