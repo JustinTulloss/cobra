@@ -25,11 +25,11 @@ and is the version recommended for production environments.
 How to Use the Library
 ----------------------
 
-Cobra.Class allows you to make very simple classes
+`Cobra.Class` allows you to make very simple classes
 in a style modeled after python.
 
 Everything is public. Indicate that you would prefer certain things be
-kept private with a leading underscore (IE. _privateThing)
+kept private with a leading underscore (IE. `_privateMember`)
 
 All class methods are passed `self` as their first parameter. Self is
 guaranteed to be the instance of the class, whether `this` is the instance
@@ -102,8 +102,8 @@ Usage
 Tests
 -----
 
-Cobra is tested with JSSpec, which you can find in the "spec" subfolder.
-Open spec_runner.html in your browser of choice to see all the tests passing.
+Cobra is tested with JSSpec, which you can find in the `spec` subfolder.
+Open `spec_runner.html` in your browser of choice to see all the tests passing.
 
 Known to work in:
 
