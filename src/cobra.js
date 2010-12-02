@@ -20,7 +20,7 @@ var Cobra = typeof window === 'undefined' ? exports : {};
 (function() {
     var root = typeof window === 'undefined' ? GLOBAL : window;
 
-    function toArray (iterable) {
+    function toArray(iterable) {
         return Array.prototype.slice.call(iterable);
     }
 
@@ -143,7 +143,8 @@ var Cobra = typeof window === 'undefined' ? exports : {};
         function klass() {
             if (this === root) {
                 throw new TypeError(
-                    "You must use 'new' when instantiating a new instance of this class");
+                    'You must use "new" when instantiating' +
+                    'a new instance of this class');
             }
 
             var key, member;
@@ -199,7 +200,7 @@ var Cobra = typeof window === 'undefined' ? exports : {};
         klass.prototype = base;
 
         /* Cobra.Class functions */
-        klass.isChild = function (parent) {
+        klass.isChild = function(parent) {
             return Cobra.Class.isChild(this, parent);
         };
 
@@ -218,8 +219,8 @@ var Cobra = typeof window === 'undefined' ? exports : {};
      *
      * Makes a method out of passed function, and returns the new function
      **/
-    Cobra.Class.method = function (callable, self) {
-        function method () {
+    Cobra.Class.method = function(callable, self) {
+        function method() {
             var args = toArray(arguments);
             args.unshift(self);
             return callable.apply(this, args);
@@ -227,7 +228,8 @@ var Cobra = typeof window === 'undefined' ? exports : {};
         return method;
     };
 
-    /* Tests to see whether child has parent somewhere in its inheritance chain */
+    /* Tests to see whether child has parent somewhere in its inheritance chain
+     */
     Cobra.Class.isChild = function(child, parent) {
         if (child === parent) { return true; }
         if (child.__extends__) {
