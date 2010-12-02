@@ -1,0 +1,14 @@
+{
+  "name": "cobra",
+  "description": "A little JavaScript class library",
+  "version": "0.5.0",
+  "homepage": "http://justintulloss.github.com/cobra",
+  "author": "Justin Tulloss <justin.tulloss@gmail.com> (http://justin.harmonize.fm)",
+  "main": "src/cobra",
+  "directories": {
+    "lib": "src"
+  },
+  "engines": {
+    "node": "*"
+  }
+}
