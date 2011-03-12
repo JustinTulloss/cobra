@@ -4,6 +4,13 @@ describe("Class with self", {
         Animal = new Cobra.Class({
             __init__: function(self) {
                 self.breathes = true;
+            },
+            die: function(self, tod) {
+                self.breathes = false;
+                return tod;
+            },
+            setName: function(self, name) {
+                self.name = name;
             }
         });
         Feline = new Cobra.Class({
@@ -18,6 +25,10 @@ describe("Class with self", {
             },
             declaw: function(self) {
                 self.claws = false;
+            },
+            die: function(self) {
+                var tod = new Date();
+                return Cobra.Class.ancestor(Feline, 'die', self, tod);
             }
         });
     },
@@ -67,5 +78,14 @@ describe("Class with self", {
         f.declaw();
         value_of(f.claws).should_be_false();
         value_of(f2.claws).should_be_true();
+    },
+    "Should be able to pass arguments to ancestors functions": function() {
+        var f = new Feline();
+        value_of(f.die()).should_not_be_undefined();
+    },
+    "Should be able to pass arguments to inherited functions": function() {
+        var f = new Feline();
+        f.setName('sneakers');
+        value_of(f.name).should_be('sneakers');
     }
 });
