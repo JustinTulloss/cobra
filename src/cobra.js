@@ -7,6 +7,7 @@
  **/
 
 /*global window exports GLOBAL */
+/*jslint forin: true */
 
 /** section: Cobra
  * Cobra
