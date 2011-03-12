@@ -1,6 +1,10 @@
 describe("Class with self", {
     before: function() {
         Cobra.config.self = true;
+        Object.prototype.bomb = function(boom) {
+            return boom;
+        };
+
         Animal = new Cobra.Class({
             __init__: function(self) {
                 self.breathes = true;
@@ -87,5 +91,9 @@ describe("Class with self", {
         var f = new Feline();
         f.setName('sneakers');
         value_of(f.name).should_be('sneakers');
+    },
+    "Should not pass self to object.prototype functions": function() {
+        var f = new Feline();
+        value_of(f.bomb('boom')).should_be('boom');
     }
 });

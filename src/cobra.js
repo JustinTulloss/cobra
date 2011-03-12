@@ -154,11 +154,13 @@ var Cobra = typeof window === 'undefined' ? exports : {};
             // Methodize all the functions
             if (Cobra.config.self) {
                 for (key in this) {
-                    if (prototype.hasOwnProperty(key)) {
-                        member = this[key];
-                        if (typeof member == 'function') {
-                            this[key] = Cobra.Class.method(member, this);
-                        }
+                    member = this[key];
+                    // Don't wrap things on object.prototype with self
+                    if (Object.prototype[key] == member) {
+                        continue;
+                    }
+                    if (typeof member == 'function') {
+                        this[key] = Cobra.Class.method(member, this);
                     }
                 }
             }
