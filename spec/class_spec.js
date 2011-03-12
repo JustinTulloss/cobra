@@ -33,6 +33,9 @@ describe("Class with self", {
             die: function(self) {
                 var tod = new Date();
                 return Cobra.Class.ancestor(Feline, 'die', self, tod);
+            },
+            bomb: function(self, boom) {
+                return 'my ' + boom;
             }
         });
     },
@@ -93,7 +96,11 @@ describe("Class with self", {
         value_of(f.name).should_be('sneakers');
     },
     "Should not pass self to object.prototype functions": function() {
+        var a = new Animal();
+        value_of(a.bomb('boom')).should_be('boom');
+    },
+    "Should be able to override object.prototype functions": function() {
         var f = new Feline();
-        value_of(f.bomb('boom')).should_be('boom');
+        value_of(f.bomb('boom')).should_be('my boom');
     }
 });
